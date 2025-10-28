@@ -12,6 +12,7 @@
   --gradient-primary: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
   --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   --gradient-accent: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+  
 }
 
 .dark {
@@ -209,3 +210,36 @@
     animation: none !important;
   }
 }
+
+/* End of index.css */
+@keyframes subtle-3d {
+  0% {
+    text-shadow: 
+      0 0 2px rgba(0, 229, 255, 0.25),
+      0 0 4px rgba(124, 58, 237, 0.15),
+      0 0 6px rgba(236, 72, 153, 0.1);
+    transform: rotateY(0deg);
+  }
+  50% {
+    text-shadow: 
+      0 0 3px rgba(0, 229, 255, 0.3),
+      0 0 6px rgba(124, 58, 237, 0.2),
+      0 0 8px rgba(236, 72, 153, 0.15);
+    transform: rotateY(8deg);
+  }
+  100% {
+    text-shadow: 
+      0 0 2px rgba(0, 229, 255, 0.25),
+      0 0 4px rgba(124, 58, 237, 0.15),
+      0 0 6px rgba(236, 72, 153, 0.1);
+    transform: rotateY(0deg);
+  }
+}
+
+.animate-subtle-3d {
+  display: inline-block;
+  animation: subtle-3d 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+  perspective: 800px;
+}
+

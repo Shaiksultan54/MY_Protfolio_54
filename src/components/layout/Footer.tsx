@@ -5,10 +5,10 @@ export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   
   const socialLinks = [
-    { icon: Github, href: 'https://github.com/shaiksultan', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://linkedin.com/in/shaiksultan', label: 'LinkedIn' },
-    { icon: Twitter, href: 'https://twitter.com/shaiksultan', label: 'Twitter' },
-    { icon: Mail, href: 'mailto:sultan541790@gmail.com', label: 'Email' },
+    { icon: Github, href: 'https://github.com/Shaiksultan54', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/shaik-sultan-a705b422a/', label: 'LinkedIn' },
+    { icon: Twitter, href: 'https://x.com/ShaikSulta54255', label: 'Twitter' },
+    { icon: Mail, href: 'mailto:shaiksultan9812@gmail.com', label: 'Email' },
   ];
 
   const quickLinks = [
@@ -76,19 +76,19 @@ export const Footer: React.FC = () => {
                 <div>
                   <p className="text-gray-400">Email</p>
                   <a
-                    href="mailto:sultan541790@gmail.com"
+                    href="mailto:shaiksultan9812@gmail.com"
                     className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300"
                   >
-                    sultan541790@gmail.com
+                    shaiksultan9812@gmail.com
                   </a>
                 </div>
                 <div>
                   <p className="text-gray-400">Phone</p>
                   <a
-                    href="tel:+919876543210"
+                    href="tel:+91 9890309844"
                     className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300"
                   >
-                    +91 9876543210
+                    +91 9890309844
                   </a>
                 </div>
                 <div>

@@ -24,8 +24,7 @@ function App() {
         <Projects />
         <Experience />
         <Services />
-        <Blog />
-        <Testimonials />
+
         <Contact />
       </main>
       

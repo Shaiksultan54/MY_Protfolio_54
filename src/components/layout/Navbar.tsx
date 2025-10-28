@@ -32,10 +32,10 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 flex items-center justify-center text-white font-bold">
-                  S
+                <div className="font-orbitron w-8 h-8 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                  SK
                 </div>
-                <span className="text-xl font-bold gradient-text">Shaik Sultan</span>
+                <span className=" font-orbitron text-xl font-bold gradient-text">Shaik Sultan</span>
               </div>
             </div>
           </div>

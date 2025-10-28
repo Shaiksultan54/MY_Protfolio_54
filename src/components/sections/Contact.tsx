@@ -1,53 +1,97 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 export const Contact: React.FC = () => {
   const { ref, inView } = useScrollAnimation();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
+  const form = useRef<HTMLFormElement>(null);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    if (!form.current) {
+      console.error('Form reference is null');
+      setIsSubmitting(false);
+      return;
+    }
+
+    const formData = new FormData(form.current);
     
-    // Simulate form submission
-    setTimeout(() => {
+    // Get current date and time
+    const now = new Date();
+    const formattedTime = now.toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    });
+    
+    // EmailJS template parameters matching your template variables
+    const templateParams = {
+      name: formData.get('from_name') as string,
+      email: formData.get('from_email') as string,
+      subject: formData.get('subject') as string,
+      message: formData.get('message') as string,
+      time: formattedTime,
+    };
+
+    try {
+      // IMPORTANT: Verify these IDs in your EmailJS dashboard:
+      // Service ID: https://dashboard.emailjs.com/admin
+      // Template ID: https://dashboard.emailjs.com/admin/templates
+      // Public Key: https://dashboard.emailjs.com/admin/account
+      
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID,  // ⚠️ VERIFY THIS in EmailJS dashboard
+          template_id:import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // ⚠️ VERIFY THIS - Error says it's not found
+          user_id: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,    // ⚠️ VERIFY THIS (Public Key)
+          template_params: templateParams,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`EmailJS API Error: ${response.status} - ${errorText}`);
+      }
+
       setSubmitStatus('success');
       setIsSubmitting(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      
-      // Reset status after 3 seconds
+      if (form.current) {
+        form.current.reset();
+      }
+
       setTimeout(() => setSubmitStatus('idle'), 3000);
-    }, 1000);
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus('idle'), 3000);
+    }
   };
 
   const contactInfo = [
     {
       icon: Mail,
       label: 'Email',
-      value: 'sultan541790@gmail.com',
-      href: 'mailto:sultan541790@gmail.com'
+      value: 'shaiksultan9812@gmail.com',
+      href: 'mailto:shaiksultan9812@gmail.com'
     },
     {
       icon: Phone,
       label: 'Phone',
-      value: '+91 9876543210',
-      href: 'tel:+919876543210'
+      value: '+91 9890309844',
+      href: 'tel:+919890309844'
     },
     {
       icon: MapPin,
@@ -58,9 +102,9 @@ export const Contact: React.FC = () => {
   ];
 
   const socialLinks = [
-    { icon: Github, href: 'https://github.com/shaiksultan', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://linkedin.com/in/shaiksultan', label: 'LinkedIn' },
-    { icon: Twitter, href: 'https://twitter.com/shaiksultan', label: 'Twitter' },
+    { icon: Github, href: 'https://github.com/Shaiksultan54', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/shaik-sultan-a705b422a/', label: 'LinkedIn' },
+    { icon: Twitter, href: 'https://x.com/ShaikSulta54255', label: 'Twitter' },
   ];
 
   return (
@@ -68,12 +112,12 @@ export const Contact: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={ref} className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className={`text-center mb-16 transition-all duration-1000 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}>
-            <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
-              Let's Connect
-            </h2>
+          <div
+            className={`text-center mb-16 transition-all duration-1000 ${
+              inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">Let's Connect</h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Ready to bring your ideas to life? Let's discuss your next project!
             </p>
@@ -81,81 +125,87 @@ export const Contact: React.FC = () => {
 
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div className={`transition-all duration-1000 delay-200 ${
-              inView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-            }`}>
+            <div
+              className={`transition-all duration-1000 delay-200 ${
+                inView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+              }`}
+            >
               <div className="glass-card p-8">
                 <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6">
                   Send a Message
                 </h3>
-                
-                <form onSubmit={handleSubmit} className="space-y-6">
+
+                <form ref={form} onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                      >
                         Name *
                       </label>
                       <input
                         type="text"
                         id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
+                        name="from_name"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300"
                         placeholder="Your name"
                       />
                     </div>
-                    
+
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                      >
                         Email *
                       </label>
                       <input
                         type="email"
                         id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
+                        name="from_email"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300"
                         placeholder="your@email.com"
                       />
                     </div>
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label
+                      htmlFor="subject"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
                       Subject *
                     </label>
                     <input
                       type="text"
                       id="subject"
                       name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300"
                       placeholder="Project inquiry"
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
                       Message *
                     </label>
                     <textarea
                       id="message"
                       name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
                       rows={6}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300 resize-none"
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300 resize-none"
                       placeholder="Tell me about your project..."
                     />
                   </div>
-                  
+
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -164,6 +214,8 @@ export const Contact: React.FC = () => {
                         ? 'bg-gray-400 cursor-not-allowed'
                         : submitStatus === 'success'
                         ? 'bg-green-600 hover:bg-green-700'
+                        : submitStatus === 'error'
+                        ? 'bg-red-600 hover:bg-red-700'
                         : 'bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-700 hover:to-purple-700'
                     }`}
                   >
@@ -177,6 +229,11 @@ export const Contact: React.FC = () => {
                         <span>✓</span>
                         <span>Message Sent!</span>
                       </>
+                    ) : submitStatus === 'error' ? (
+                      <>
+                        <span>⚠</span>
+                        <span>Failed to Send</span>
+                      </>
                     ) : (
                       <>
                         <Send className="w-5 h-5" />
@@ -189,9 +246,11 @@ export const Contact: React.FC = () => {
             </div>
 
             {/* Contact Info */}
-            <div className={`transition-all duration-1000 delay-400 ${
-              inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
-            }`}>
+            <div
+              className={`transition-all duration-1000 delay-400 ${
+                inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
+              }`}
+            >
               <div className="space-y-8">
                 <div>
                   <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6">
@@ -211,9 +270,7 @@ export const Contact: React.FC = () => {
                           <h4 className="font-semibold text-gray-800 dark:text-gray-200">
                             {info.label}
                           </h4>
-                          <p className="text-gray-600 dark:text-gray-300">
-                            {info.value}
-                          </p>
+                          <p className="text-gray-600 dark:text-gray-300">{info.value}</p>
                         </div>
                       </a>
                     ))}
@@ -245,7 +302,7 @@ export const Contact: React.FC = () => {
                     Let's Build Something Amazing Together
                   </h4>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    I'm always excited to work on new projects and help bring innovative ideas to life. 
+                    I'm always excited to work on new projects and help bring innovative ideas to life.
                     Whether you need a website, mobile app, or enterprise solution, I'm here to help.
                   </p>
                   <div className="flex items-center space-x-2 text-green-600 dark:text-green-400">

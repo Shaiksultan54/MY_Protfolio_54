@@ -6,6 +6,11 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        monoton: ['Monoton', 'cursive'],
+        orbitron: ['Orbitron', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
+        russo: ['Russo One', 'sans-serif'],
+        glitch: ['Rubik Glitch', 'cursive'],
       },
       colors: {
         background: 'rgb(var(--background) / <alpha-value>)',

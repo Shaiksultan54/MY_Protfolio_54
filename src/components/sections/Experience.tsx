@@ -25,27 +25,9 @@ export const Experience: React.FC = () => {
         'Developed automated tender processing reducing approval time by 40%'
       ]
     },
+
     {
       id: '2',
-      company: 'Code for GovTech (C4GT)',
-      role: 'Open Source Contributor',
-      duration: 'Jun 2024 - Aug 2024',
-      location: 'Remote',
-      responsibilities: [
-        'Contributed to ZK Invoicing System as part of government technology initiative',
-        'Developed features for automated billing and invoice generation',
-        'Collaborated with NSUT team on open-source project development',
-        'Participated in code reviews and maintained coding standards'
-      ],
-      technologies: ['React.js', 'Node.js', 'Express.js', 'MongoDB'],
-      achievements: [
-        'Successfully completed C4GT program with outstanding performance',
-        'Contributed to government technology initiative improving public services',
-        'Developed reusable components adopted by other team members'
-      ]
-    },
-    {
-      id: '3',
       company: 'ISL Engineering College',
       role: 'Robotics Club Lead',
       duration: 'Sep 2022 - Present',

@@ -6,8 +6,8 @@ export const About: React.FC = () => {
   const { ref, inView } = useScrollAnimation();
 
   const achievements = [
-    { icon: Code2, label: 'Projects Completed', value: '15+' },
-    { icon: Award, label: 'Hackathon Finalist', value: '2' },
+    { icon: Code2, label: 'Projects Completed', value: '20+' },
+    { icon: Award, label: 'Hackathons Participated', value: '5+' },
     { icon: Coffee, label: 'Cups of Coffee', value: '500+' },
     { icon: Target, label: 'Client Satisfaction', value: '98%' },
   ];
@@ -24,7 +24,7 @@ export const About: React.FC = () => {
               About Me
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Passionate developer with a love for creating innovative solutions
+              Full Stack Developer passionate about building impactful digital solutions
             </p>
           </div>
 
@@ -37,25 +37,29 @@ export const About: React.FC = () => {
                 <MapPin className="w-5 h-5 text-cyan-600" />
                 <span>Hyderabad, Telangana</span>
                 <Calendar className="w-5 h-5 text-cyan-600 ml-6" />
-                <span>CSE Student (2021-2025)</span>
+                <span>Graduated - 2025 (CSE)</span>
               </div>
 
               <div className="prose prose-lg dark:prose-invert max-w-none">
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  I'm a passionate <strong className="text-cyan-600">Full Stack Developer</strong> and 
-                  <strong className="text-purple-600"> DevOps Enthusiast</strong> currently pursuing my 
-                  Bachelor of Engineering in Computer Science from ISL Engineering College, Osmania University.
+                  I’m a passionate <strong className="text-cyan-600">Full Stack Developer</strong> and 
+                  <strong className="text-purple-600"> DevOps Enthusiast</strong> with a strong foundation 
+                  in modern web technologies and backend systems. I completed my Bachelor of Engineering 
+                  in Computer Science from <strong>ISL Engineering College, Osmania University</strong>.
                 </p>
                 
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  Currently working as a Jr. Software Engineer at MyTechIN, I specialize in 
-                  modern web technologies, cloud deployment, and building scalable applications. 
-                  My goal is to create efficient, user-friendly solutions that solve real-world problems.
+                  I’ve gained practical experience working as a <strong>Freelance Developer</strong> with 
+                  <strong> MYTECHIN </strong>, where I collaborated on real-world projects on a project-based model.
+                  My work involves developing scalable web applications, optimizing performance, and ensuring 
+                  seamless user experiences.
                 </p>
                 
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  When I'm not coding, you'll find me leading the Robotics Club at my college, 
-                  participating in hackathons, or working on freelance projects that challenge my skills.
+                  During my college journey, I actively participated in multiple <strong>hackathons</strong>, 
+                  technical events, and led the <strong>Robotics Club</strong>, which strengthened my teamwork 
+                  and leadership skills. I enjoy tackling complex challenges and transforming ideas into 
+                  well-engineered digital solutions.
                 </p>
               </div>
 
@@ -64,8 +68,8 @@ export const About: React.FC = () => {
                   <h4 className="font-semibold text-gray-800 dark:text-gray-200">Focus Areas</h4>
                   <ul className="text-gray-600 dark:text-gray-300 space-y-1">
                     <li>• Full Stack Development</li>
-                    <li>• Cloud Architecture</li>
-                    <li>• DevOps Practices</li>
+                    <li>• Cloud & DevOps</li>
+                    <li>• API Integration</li>
                     <li>• UI/UX Design</li>
                   </ul>
                 </div>
@@ -74,7 +78,7 @@ export const About: React.FC = () => {
                   <h4 className="font-semibold text-gray-800 dark:text-gray-200">Interests</h4>
                   <ul className="text-gray-600 dark:text-gray-300 space-y-1">
                     <li>• Robotics & IoT</li>
-                    <li>• AI/ML Integration</li>
+                    <li>• AI/ML Applications</li>
                     <li>• Open Source</li>
                     <li>• Hackathons</li>
                   </ul>
@@ -97,7 +101,7 @@ export const About: React.FC = () => {
                       Education
                     </h3>
                     <p className="text-cyan-600 dark:text-cyan-400 font-medium">
-                      Bachelor of Engineering - CSE
+                      B.E. - Computer Science Engineering
                     </p>
                   </div>
                 </div>
@@ -106,7 +110,7 @@ export const About: React.FC = () => {
                     ISL Engineering College, Osmania University
                   </p>
                   <p className="text-gray-600 dark:text-gray-400">
-                    2021 - 2025 | GPA: 8.2/10
+                    2021 - 2025 | GPA: 7.77/10
                   </p>
                 </div>
               </div>
@@ -119,16 +123,17 @@ export const About: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200">
-                      Current Role
+                      Freelance Experience
                     </h3>
                     <p className="text-purple-600 dark:text-purple-400 font-medium">
-                      Jr. Software Engineer
+                      MYTECHIN (Project-based)
                     </p>
                   </div>
                 </div>
                 <div className="space-y-2">
                   <p className="text-gray-700 dark:text-gray-300">
-                    MyTechIN - Part Time
+                    Worked on multiple freelance web development projects focusing on
+                    ASP.NET Core, React, and database integration.
                   </p>
                   <p className="text-gray-600 dark:text-gray-400">
                     May 2024 - Present

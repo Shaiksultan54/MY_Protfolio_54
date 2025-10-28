@@ -18,32 +18,14 @@ export const Hero: React.FC = () => {
       
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          {/* Profile Image */}
-          {/* <div className="mb-8">
-            <div className="relative inline-block">
-              <div className="w-48 h-48 mx-auto rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 p-1 animate-pulse-slow">
-                <div className="w-full h-full rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-6xl">
-                  👨‍💻
-                </div>
-              </div>
-              <div className="absolute -bottom-2 -right-2 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">Available</span>
-              </div>
-            </div>
-          </div> */}
-          <div className="w-48 h-48 mx-auto rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 p-1 animate-pulse-slow">
-            <img 
-            src="src/public/img/photo.jpeg" // <-- make sure this path is correct
-            alt="Shaik Sultan"
-            className="w-full h-full rounded-full object-cover"/>
-            </div>
 
           
           {/* Name and Title */}
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 gradient-text">
+
+            <h1 className="font-orbitron text-6xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 animate-pulse">
             Shaik Sultan
-          </h1>
-          
+            </h1>
+
           <div className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 h-16 flex items-center justify-center">
             <TypeAnimation
               sequence={[
@@ -113,7 +95,7 @@ export const Hero: React.FC = () => {
           
           {/* Tech Stack */}
           <div className="flex flex-wrap justify-center gap-4 mb-8">
-            {['React.js', 'Node.js', 'C# .NET', 'MongoDB', 'AWS', 'DevOps'].map((tech) => (
+            {['React.js', 'Node.js', 'C# .NET', 'MongoDB', 'SQL'].map((tech) => (
               <span
                 key={tech}
                 className="px-4 py-2 glass-card text-sm font-medium text-gray-700 dark:text-gray-300"
