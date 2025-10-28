@@ -32,7 +32,7 @@ export const Projects = () => {
       status: 'complete',
       githubUrl: 'https://github.com/Shaiksultan54/ResQ_Bubble',
       liveUrl: null,
-      imageUrl: 'src/public/img/Screenshot (149).png'
+      imageUrl: '/img/Screenshot (149).png'
     },
     {
       id: '2',
