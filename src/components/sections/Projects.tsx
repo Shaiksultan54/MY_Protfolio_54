@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Github, ExternalLink, Filter } from 'lucide-react';
-import screenshot from '../../public/img/screenshot-149.png';
+
 
 const useScrollAnimation = () => {
   const [inView, setInView] = React.useState(false);
@@ -33,7 +33,7 @@ export const Projects = () => {
       status: 'complete',
       githubUrl: 'https://github.com/Shaiksultan54/ResQ_Bubble',
       liveUrl: null,
-      imageUrl: screenshot
+      imageUrl:'public/img/Screenshot (149).png'
     },
     {
       id: '2',
